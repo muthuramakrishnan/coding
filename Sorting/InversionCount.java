@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class InversionCount {
-    public static int getInterArrInversionCount(int[] arr, int startIdx1, int endIdx1, int startIdx2, int endIdx2) {
-        int count = 0;
+    public static long getInterArrInversionCount(long[] arr, int startIdx1, int endIdx1, int startIdx2, int endIdx2) {
+        long count = 0;
         Arrays.sort(arr, startIdx1, endIdx1 + 1);
         Arrays.sort(arr, startIdx2, endIdx2 + 1);
         while (startIdx1 <= endIdx1 && startIdx2 <= endIdx2) {
@@ -21,7 +21,7 @@ public class InversionCount {
         return count;
     }
 
-    public static int getInversionCount(int[] arr, int startIdx, int endIdx) {
+    public static long getInversionCount(long[] arr, int startIdx, int endIdx) {
         if (startIdx == endIdx) {
             return 0;
         }
@@ -32,14 +32,16 @@ public class InversionCount {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] s = br.readLine().split(" ");
-        // arr[i] > arr[j]
-        // i < j
-        int n = s.length;
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(s[i]);
+        int T = Integer.parseInt(br.readLine().strip());
+        while (T >= 1) {
+            int n = Integer.parseInt(br.readLine().strip());
+            String[] s = br.readLine().split(" ");
+            long[] arr = new long[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = Long.parseLong(s[i]);
+            }
+            System.out.println(getInversionCount(arr, 0, n - 1));
+            T--;
         }
-        System.out.println(getInversionCount(arr, 0, n - 1));
     }
 }

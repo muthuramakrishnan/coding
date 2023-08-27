@@ -38,7 +38,7 @@ public class MergeSort {
             return;
         }
         int mid = (startIdx + endIdx) / 2;
-        mergeSort(arr, 0, mid);
+        mergeSort(arr, startIdx, mid);
         mergeSort(arr, mid + 1, endIdx);
         int[] resArr = merge(arr, startIdx, mid, mid + 1, endIdx);
         int resIdx = 0;
@@ -50,14 +50,14 @@ public class MergeSort {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine().strip());
         String[] s = br.readLine().split(" ");
-        int n = s.length;
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(s[i]);
         }
         mergeSort(arr, 0, n - 1);
-        System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(arr).replaceAll("(^\\[|\\]$)", "").replace(", ", ","));
     }
 
 }
