@@ -27,15 +27,15 @@ public class TwoPointers1 {
                 int iCount = 0;
                 int jNum = arr[j];
                 int jCount = 0;
-                while (arr[i] == iNum) {
+                while (i <= j && arr[i] == iNum) {
                     iCount++;
                     i++;
                 }
-                while (arr[j] == jNum) {
+                while (j >= i && arr[j] == jNum) {
                     jCount++;
                     j--;
                 }
-                // M C 2 ->  (iCount * (iCount - 1)) / 2 - combination when iNum == jNum 
+                // M C 2 -> (iCount * (iCount - 1)) / 2 - combination when iNum == jNum
                 count += iNum == jNum ? (iCount * (iCount - 1)) / 2 : iCount * jCount;
             }
         }
