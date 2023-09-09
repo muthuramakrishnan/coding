@@ -35,7 +35,7 @@ public class TwoPointers1 {
                     jCount++;
                     j--;
                 }
-                count += iCount * jCount;
+                count += iNum == jNum ? iCount : iCount * jCount;
             }
         }
         System.out.println(count);
