@@ -19,7 +19,7 @@ class QuadrupletSum {
             if (i > 0 && arr[i - 1] == arr[i]) {
                 continue;
             }
-            for (int j = 0; j < n; j++) {
+            for (int j = i + 1; j < n; j++) {
                 if (j > i + 1 && arr[j - 1] == arr[j]) {
                     continue;
                 }
@@ -32,10 +32,10 @@ class QuadrupletSum {
                     int num4 = arr[l];
                     if (arr[k] + arr[l] == numExpected) {
                         System.out.printf("%d, %d, %d %d%n", arr[i], arr[j], arr[k], arr[l]);
-                        while (arr[k] == num3) {
+                        while (k < n && arr[k] == num3) {
                             k++;
                         }
-                        while (arr[l] == num4) {
+                        while (l >= 0 && arr[l] == num4) {
                             l--;
                         }
                     } else if (arr[k] + arr[l] < numExpected) {
