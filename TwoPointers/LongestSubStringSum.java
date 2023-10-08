@@ -25,13 +25,8 @@ public class LongestSubStringSum {
 
         Map<Integer, Integer> elementIdxMap = new HashMap<>();
         elementIdxMap.put(0, -1);
-        int dist = 0;
+        int dist = -1;
         for (int i = 0; i < n; i++) {
-            boolean hasElem = elementIdxMap.containsKey(prefixSum[i]);
-            if (!hasElem) {
-                elementIdxMap.put(prefixSum[i], i);
-            }
-
             //expected sum -> k
             //is it equal to the expected sum
             int num2 = prefixSum[i] - k;
@@ -40,6 +35,12 @@ public class LongestSubStringSum {
                int idx = elementIdxMap.get(num2);
                 dist = Math.max(dist, i - idx);
             }
+
+            boolean hasElem = elementIdxMap.containsKey(prefixSum[i]);
+            if (!hasElem) {
+                elementIdxMap.put(prefixSum[i], i);
+            }
+
         }
         System.out.println(dist);
     }
