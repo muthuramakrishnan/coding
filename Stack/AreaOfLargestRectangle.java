@@ -72,7 +72,7 @@ public class AreaOfLargestRectangle {
 
         int largestArea = Integer.MIN_VALUE;
         for (int i = 0; i < n; i++) {
-            largestArea = Math.max(largestArea, (nextSmallerArr[i] - prevSmallerArr[i] + 1) * arr[i]);
+            largestArea = Math.max(largestArea, (nextSmallerArr[i] - prevSmallerArr[i] - 1) * arr[i]);
         }
         System.out.println(largestArea);
     }
