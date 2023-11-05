@@ -9,16 +9,23 @@
  * }
  */
 class Solution {
+    private ListNode _reverseRecurrsively(ListNode currNode, ListNode prevNode) {
+        if (currNode == null) {
+            return prevNode;
+        }
+        ListNode nextNode = currNode.next;
+        currNode.next = prevNode;
+        prevNode = currNode;
+        currNode = nextNode;
+        return _reverseRecurrsively(currNode, prevNode);
+    }
+
     public ListNode reverseList(ListNode head) {
         ListNode prevNode = null;
         ListNode currNode = head;
-        while (currNode != null) {
-            ListNode nextNode = currNode.next;
-            currNode.next = prevNode;
-            prevNode = currNode;
-            currNode = nextNode;
-        }
-        head = prevNode;
+        ListNode returnedNode = _reverseRecurrsively(currNode, prevNode);
+        head = returnedNode;
         return head;
     }
+
 }
