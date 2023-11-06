@@ -80,4 +80,35 @@ public class CustomLinkedList {
         }
         currNode.next = currNode.next.next;
     }
+
+    public static void reverse(CustomLinkedList list) {
+        Node prevNode = null;
+        Node currNode = list.head;
+        while (currNode != null) {
+            Node nextNode = currNode.next;
+            currNode.next = prevNode;
+            prevNode = currNode;
+            currNode = nextNode;
+
+        }
+        list.head = prevNode;
+    }
+
+    private static Node _reverseRecurrsively(Node currNode, Node prevNode) {
+        if (currNode == null) {
+            return prevNode;
+        }
+        Node nextNode = currNode.next;
+        currNode.next = prevNode;
+        prevNode = currNode;
+        currNode = nextNode;
+        return _reverseRecurrsively(currNode, prevNode);
+    }
+
+    public static void reverseRecurrsively(CustomLinkedList list) {
+        Node prevNode = null;
+        Node currNode = list.head;
+        Node returnedNode = _reverseRecurrsively(currNode, prevNode);
+        list.head = returnedNode;
+    }
 }

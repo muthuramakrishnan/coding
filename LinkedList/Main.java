@@ -7,12 +7,19 @@ public class Main {
         CustomLinkedList linkedList = new CustomLinkedList();
         linkedList.push(10);
         linkedList.push(20);
-        linkedList.insert(0, 1);
-        linkedList.insert(3, 1);
+        linkedList.insert(0, 5);
+        linkedList.insert(3, 25);
 
         linkedList.delete(2);
-        for(int i=0; i<linkedList.size(); i++){
-            System.out.println(linkedList.get(i));
+        int n = linkedList.size();
+        System.out.println("Before reversal");
+        for (int i = 0; i < n; i++) {
+            System.out.print(linkedList.get(i) + " ");
+        }
+        CustomLinkedList.reverseRecurrsively(linkedList);
+        System.out.println("After reversal");
+        for (int i = 0; i < n; i++) {
+            System.out.print(linkedList.get(i) + " ");
         }
     }
 }
