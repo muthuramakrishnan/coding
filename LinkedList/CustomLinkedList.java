@@ -3,16 +3,6 @@ package LinkedList;
 public class CustomLinkedList {
     private Node head;
 
-    public static class Node {
-        int data;
-        Node next;
-
-        Node(int data) {
-            this.data = data;
-            next = null;
-        }
-    }
-
     public int size() {
         Node currNode = head;
         int size = 1;
@@ -79,6 +69,10 @@ public class CustomLinkedList {
             currIdx++;
         }
         currNode.next = currNode.next.next;
+    }
+
+    public Node getHeadNode() {
+        return head;
     }
 
     public static void reverse(CustomLinkedList list) {
