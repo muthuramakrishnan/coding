@@ -21,5 +21,19 @@ public class Main {
         for (int i = 0; i < n; i++) {
             System.out.print(linkedList.get(i) + " ");
         }
+
+        System.out.println("Doubly Linked LIst");
+        DoublyLinkedList linkedList2 = new DoublyLinkedList();
+        linkedList2.add(1);
+        linkedList2.add(2);
+        linkedList2.add(3);
+        linkedList2.add(4);
+
+        linkedList2.insert(1, 10);
+        linkedList2.insert(4, 20);
+         linkedList2.insert(6, 100);
+        for(int i=0; i<7; i++){
+            System.out.println(linkedList2.get(i));
+        }
     }
 }

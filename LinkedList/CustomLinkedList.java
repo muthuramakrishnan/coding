@@ -54,7 +54,7 @@ public class CustomLinkedList {
             currentNode = currentNode.next;
             currIdx++;
         }
-        return currentNode.data;
+        return currentNode.value;
     }
 
     public void delete(int idx) {
