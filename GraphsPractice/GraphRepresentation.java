@@ -5,9 +5,29 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class GraphRepresentation {
+    public static void doBfs(int src, List<Integer> adjacentNodes, boolean[] visitedNodes, Queue<Integer> queue) {
+        if (visitedNodes[src]) {
+            return;
+        }
+        queue.add(src);
+        visitedNodes[src] = true;
+        while (!queue.isEmpty()) {
+            int currItem = queue.remove();
+            System.out.printf("%d, ", currItem);
+            for (int node : adjacentNodes) {
+                if (!visitedNodes[node]) {
+                    queue.add(node);
+                    visitedNodes[node] = true;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] s = br.readLine().split(" ");
@@ -41,6 +61,13 @@ public class GraphRepresentation {
 
         for (int i = 1; i <= n; i++) {
             System.out.println(graph[i]);
+        }
+
+        // BFS
+        boolean[] visitedNodes = new boolean[n + 1];
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 1; i <= n; i++) {
+            doBfs(i, graph[i], visitedNodes, queue);
         }
     }
 }
