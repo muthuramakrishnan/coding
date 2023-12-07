@@ -14,22 +14,32 @@
  * }
  */
 class Solution {
-    long prevVal = Long.MIN_VALUE;
-    public boolean findIsBst(TreeNode node){
+    public NodeInfoObj isSubTreeBst(TreeNode node){
+        NodeInfoObj nodeInfo = new NodeInfoObj();
         if(node == null){
-            return true;
+            nodeInfo.maxVal = Long.MIN_VALUE;
+            nodeInfo.minVal = Long.MAX_VALUE;
+            nodeInfo.isBst = true;
+            return nodeInfo;
         }
-        boolean isLeftBst = findIsBst(node.left);
-        if(prevVal < node.val){
-            prevVal = node.val;
-        }
-        else{
-            return false;
-        }
-        boolean isRightBst = findIsBst(node.right);
-        return isLeftBst && isRightBst;
+
+        NodeInfoObj leftNodeInfo = isSubTreeBst(node.left);
+        NodeInfoObj rightNodeInfo = isSubTreeBst(node.right);
+
+        NodeInfoObj currNodeInfo = new NodeInfoObj();
+        currNodeInfo.isBst = leftNodeInfo.isBst && rightNodeInfo.isBst && (node.val > leftNodeInfo.maxVal) && (node.val < rightNodeInfo.minVal);
+        currNodeInfo.minVal = Math.min(Math.min(leftNodeInfo.minVal, node.val), rightNodeInfo.minVal);
+        currNodeInfo.maxVal = Math.max(Math.max(leftNodeInfo.maxVal, node.val), rightNodeInfo.maxVal);
+        return currNodeInfo;
     }
     public boolean isValidBST(TreeNode root) {
-        return findIsBst(root);
+        NodeInfoObj nodeInfo = isSubTreeBst(root);
+        return nodeInfo.isBst;
     }
+}
+
+class NodeInfoObj{
+    public long maxVal;
+    public long minVal;
+    public boolean isBst;
 }
