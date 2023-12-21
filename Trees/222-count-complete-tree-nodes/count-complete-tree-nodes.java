@@ -14,55 +14,37 @@
  * }
  */
 class Solution {
-    public boolean checkIsNull(TreeNode node, int n, int low, int high){
-        if(n > high){
-            return true;
-        }
-        while(low<high){
-            int mid = low + (high - low) / 2;
-            if(mid >= n){
-                high = mid;
-                node = node.left;
-            }
-            else{
-                low = mid + 1;
-                node = node.right;
-            }
-        }
-        return node == null;
+    enum TREE_BRANCH {
+        LEFT_BRANCH,
+        RIGHT_BRANCH;
     }
-    public int getHeight(TreeNode node){
+    public boolean isPerfect(TreeNode node){
+        int leftCount = getHeight(node, TREE_BRANCH.LEFT_BRANCH);
+        int rightCount = getHeight(node, TREE_BRANCH.RIGHT_BRANCH);
+        return leftCount == rightCount;
+    }
+    public int getHeight(TreeNode node, TREE_BRANCH treeBranch){
         int count = 0;
-        while(node!=null){
-            node = node.left;
+        while(node != null){
+            node = treeBranch == TREE_BRANCH.LEFT_BRANCH ? node.left : node.right;
             count++;
         }
         return count;
     }
-    public int getSumOfNTerms(int ratio, int a, int n){
-        return (a * ((int)Math.pow(ratio, n) - 1)) / (ratio - 1);
+    public int findCounts(TreeNode node){
+        if(node == null){
+            return 0;
+        }
+
+        boolean isLeftTreePerfect = isPerfect(node.left);
+        boolean isRightTreePerfect = isPerfect(node.right);
+
+        int leftTreeCount = isLeftTreePerfect ? (int)Math.pow(2, getHeight(node.left, TREE_BRANCH.LEFT_BRANCH)) - 1 : findCounts(node.left);
+        int rightTreeCount = isRightTreePerfect ? (int)Math.pow(2, getHeight(node.right, TREE_BRANCH.LEFT_BRANCH)) - 1 : findCounts(node.right);
+
+        return leftTreeCount + rightTreeCount + 1;
     }
     public int countNodes(TreeNode node) {
-        int height = getHeight(node);
-        int totalNodesInLastRow = (int) Math.pow(2, height - 1);
-        int low = 1;
-        int high = totalNodesInLastRow;
-
-        while(low<=high){
-            int mid = low + (high - low) / 2;
-            boolean isNull = checkIsNull(node, mid, 1, totalNodesInLastRow);
-            if(isNull){
-                high = mid - 1;
-            }
-            else{
-                if(checkIsNull(node, mid+1, 1, totalNodesInLastRow)){
-                    return getSumOfNTerms(2, 1, height - 1) + mid;
-                }
-                else{
-                    low = mid + 1;
-                }
-            }
-        }
-        return 0;
+        return findCounts(node);
     }
 }
