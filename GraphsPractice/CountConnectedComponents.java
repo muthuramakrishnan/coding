@@ -9,19 +9,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class DepthFirstSearch {
+public class CountConnectedComponents {
 
-    public static void doDfs(int idx, List<List<Integer>> graph, Set<Integer> visitedSet){
-        if(visitedSet.contains(idx)){
+    public static void doDfs(int idx, List<List<Integer>> graph, Set<Integer> visitedSet) {
+        if (visitedSet.contains(idx)) {
             return;
         }
         visitedSet.add(idx);
-        System.out.printf("%d, ", idx);
+        // System.out.printf("%d, ", idx);
         List<Integer> adjacencyList = graph.get(idx);
-        for(int adjacentItem : adjacencyList){
+        for (int adjacentItem : adjacencyList) {
             doDfs(adjacentItem, graph, visitedSet);
         }
     }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] s = br.readLine().split(" ");
@@ -35,8 +36,13 @@ public class DepthFirstSearch {
         }
 
         Set<Integer> visitedSet = new HashSet<>();
+        int connectedComponents = 0;
         for (int i = 0; i < graph.size(); i++) {
+            if (!visitedSet.contains(i)) {
+                connectedComponents++;
+            }
             doDfs(i, graph, visitedSet);
         }
+        System.out.println("connectedComponents " + connectedComponents);
     }
 }
