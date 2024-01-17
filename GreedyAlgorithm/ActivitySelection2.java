@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class ActivitySelection2 {
     private static class Activity {
@@ -25,6 +26,10 @@ public class ActivitySelection2 {
             int endTime = Integer.parseInt(s[1]);
             activity[i] = new Activity(startTime, endTime);
         }
+
+        Arrays.sort(activity, (a, b) -> {
+            return a.endTime - b.endTime;
+        });
 
         int lastEndTime1 = 0;
         int lastEndTime2 = 0;
