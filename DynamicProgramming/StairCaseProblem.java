@@ -8,18 +8,18 @@ import java.util.Arrays;
 public class StairCaseProblem {
     private static long[] memoizedValues;
 
-    public static long countJumps(int i, int n) {
-        if (i == n) {
+    public static long countJumps(int i) {
+        if (i == 0) {
             return 1;
         }
-        if (i > n) {
+        if (i < 0) {
             return 0;
         }
 
         if (memoizedValues[i] != -1) {
             return memoizedValues[i];
         }
-        memoizedValues[i] = countJumps(i + 1, n) + countJumps(i + 2, n);
+        memoizedValues[i] = countJumps(i - 1) + countJumps(i - 2);
         return memoizedValues[i];
     }
 
@@ -31,6 +31,6 @@ public class StairCaseProblem {
         memoizedValues = new long[n + 1];
         Arrays.fill(memoizedValues, -1);
         // either i can take 1 unit jump or 2 units jump
-        System.out.println(countJumps(0, n));
+        System.out.println(countJumps(n));
     }
 }
