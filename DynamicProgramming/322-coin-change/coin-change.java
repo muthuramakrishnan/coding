@@ -1,30 +1,19 @@
 class Solution {
-    private long[] memoizedValues;
+    private int[] memoizedValues;
 
-    public long findMinCoins(int[] coins, int currAmt, int m, int total) {
-        if(currAmt == total){
-            return 0;
+    public int coinChange(int[] denoms, int totalMoney) {
+        int denomLen = denoms.length;
+        memoizedValues = new int[totalMoney + 1];
+        memoizedValues[0] = 0;
+        for (int i = 1; i <= totalMoney; i++) {
+            memoizedValues[i] = Integer.MAX_VALUE;
+            for (int j = 0; j < denomLen; j++) {
+                if (i - denoms[j] < 0) {
+                    continue;
+                }
+                memoizedValues[i] = (int) Math.min((long) memoizedValues[i], (long) 1 + memoizedValues[i - denoms[j]]);
+            }
         }
-        if(currAmt > total || currAmt < 0){
-            return Long.MAX_VALUE;
-        }
-        if(memoizedValues[currAmt] != -1){
-            return memoizedValues[currAmt];
-        }
-
-        long minCoinsRequired = Long.MAX_VALUE;
-        for(int i=0; i<m; i++){
-            minCoinsRequired = Math.min(findMinCoins(coins, currAmt + coins[i], m, total), minCoinsRequired);
-        }
-        memoizedValues[currAmt] = minCoinsRequired == Long.MAX_VALUE ? Long.MAX_VALUE : 1 + minCoinsRequired;
-        return memoizedValues[currAmt];
-    }
-
-    public int coinChange(int[] coins, int total) {
-        int m = coins.length;
-        memoizedValues = new long[total + 5];
-        Arrays.fill(memoizedValues, -1);
-        long minCoinsRequired = findMinCoins(coins, 0, m, total);
-        return minCoinsRequired == Long.MAX_VALUE ? (int) -1 : (int) minCoinsRequired;
+        return memoizedValues[totalMoney] == Integer.MAX_VALUE ? -1 : memoizedValues[totalMoney];
     }
 }
