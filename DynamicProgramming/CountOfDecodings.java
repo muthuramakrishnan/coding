@@ -23,13 +23,11 @@ public class CountOfDecodings {
 
         int way1 = 0;
         int way2 = 0;
-        if(s1 == 0){
+        if (s1 < 1 || s1 > 27) {
             memoizedValues[startIdx] = 0;
-            return memoizedValues[startIdx];
+            return 0;
         }
-        if (s1 >= 1 && s1 <= 26) {
-            way1 = countWays(s, startIdx + 1);
-        }
+        way1 = countWays(s, startIdx + 1);
         if (s2 >= 1 && s2 <= 26) {
             way2 = countWays(s, startIdx + 2);
         }
