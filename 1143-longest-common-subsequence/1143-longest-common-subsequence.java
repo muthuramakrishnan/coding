@@ -1,10 +1,10 @@
 class Solution {
-    private int[][] memoizedValues;
     public int longestCommonSubsequence(String s1, String s2) {
         int m = s1.length();
         int n = s2.length();
 
-        memoizedValues = new int[m][n];
+        int[] prevArr = new int[n];
+        int[] currArr = new int[n];
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -12,13 +12,14 @@ class Solution {
                 char c2 = s2.charAt(j);
 
                 if (c1 == c2) {
-                    memoizedValues[i][j] = 1 + (i > 0 && j > 0 ? memoizedValues[i - 1][j - 1] : 0);
+                    currArr[j] = 1 + (i > 0 && j > 0 ? prevArr[j - 1] : 0);
                 } else {
-                    memoizedValues[i][j] = Math.max(i > 0 ? memoizedValues[i - 1][j] : 0,
-                            j > 0 ? memoizedValues[i][j - 1] : 0);
+                    currArr[j] = Math.max(i > 0 ? prevArr[j] : 0, j > 0 ? currArr[j - 1] : 0);
                 }
             }
+            prevArr = currArr;
+
         }
-        return memoizedValues[m - 1][n - 1];
+        return currArr[n - 1];
     }
 }
