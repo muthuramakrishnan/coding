@@ -6,6 +6,12 @@ import java.io.InputStreamReader;
 
 public class LCS1 {
 
+    public static void deepCopy(int[] arr1, int[] arr2){
+        for(int i=0; i<arr1.length; i++){
+            arr1[i] = arr2[i];
+        }
+    }
+
     public static int longestCommonSubsequence(String s1, String s2) {
         int m = s1.length();
         int n = s2.length();
@@ -24,7 +30,9 @@ public class LCS1 {
                     currArr[j] = Math.max(i > 0 ? prevArr[j] : 0, j > 0 ? currArr[j - 1] : 0);
                 }
             }
-            prevArr = currArr;
+            prevArr = new int[n];
+            deepCopy(prevArr, currArr);
+            // currArr = new int[n];
 
         }
         return currArr[n - 1];
